@@ -29,6 +29,19 @@ public class Tracker {
         }
     }
 
+    public void delete(int id) {
+        int index = indexOf(id);
+        int start = index + 1;
+        int distPos = index;
+        int length = size - index - 1;
+        if (index != -1) {
+            System.arraycopy(items, start, items, distPos, length);
+            items[size - 1] = null;
+            size--;
+        }
+
+    }
+
     public Item add(Item item) {
         item.setId(ids++);
         items[size++] = item;
