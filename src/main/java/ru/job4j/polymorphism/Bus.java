@@ -4,14 +4,17 @@ public class Bus implements Transport {
 
     @Override
     public void drive() {
+        System.out.println("Автобус едет");
     }
 
     @Override
     public void passengers(int quantity) {
+        System.out.println("Количество пассажиров в автобусе +" + quantity);
     }
 
     @Override
     public int fillUp(int liters) {
-        return 0;
+        System.out.println("Заправили автобус");
+        return liters;
     }
 }
