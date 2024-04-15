@@ -42,7 +42,7 @@ class StartUITest {
         };
         StartUI.deleteItem(new MockInput(answers), tracker);
         Item deleted = tracker.findById(item.getId());
-        assertNull(deleted);
+        assertThat(deleted).isNull();
 
     }
 }
