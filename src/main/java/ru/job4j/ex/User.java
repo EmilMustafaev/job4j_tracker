@@ -8,6 +8,7 @@ public class User {
     public User(String username, boolean valid) {
         this.username = username;
         this.valid = valid;
+
     }
 
     public String getUsername() {
