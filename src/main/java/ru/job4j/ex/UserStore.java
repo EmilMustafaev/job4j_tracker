@@ -11,7 +11,6 @@ public class UserStore {
             user = users[index];
         }
         return user;
-
     }
 
     public static boolean validate(User user) throws UserInvalidException {
