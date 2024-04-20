@@ -32,13 +32,13 @@ class ValidateInputTest {
     void whenMultipleInput() {
         Output output = new StubOutput();
         Input in = new MockInput(
-                new String[]{"1", "2", "3"}
+                new String[]{"1", "0", "3"}
         );
         ValidateInput input = new ValidateInput(output, in);
         int selected = input.askInt("Выбрать: ");
         assertThat(selected).isEqualTo(1);
         int selected2 = input.askInt("Выбрать: ");
-        assertThat(selected2).isEqualTo(2);
+        assertThat(selected2).isEqualTo(0);
         int selected3 = input.askInt("Выбрать: ");
         assertThat(selected3).isEqualTo(3);
     }
