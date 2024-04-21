@@ -3,6 +3,7 @@ package ru.job4j.early;
 public class PasswordValidator {
     private static final String[] FORBIDDEN = {"qwerty", "12345", "password", "admin", "user"};
 
+    @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public static String validate(String password) {
         if (password == null) {
             throw new IllegalArgumentException("Password can't be null");
@@ -28,32 +29,37 @@ public class PasswordValidator {
             if (!Character.isLetterOrDigit(symbol)) {
                 hasSpecial = true;
             }
+            if (hasUpCase && hasLowCase && hasDigit
+                    && hasSpecial) {
+                break;
+            }
         }
+        if (!hasUpCase) {
+            throw new IllegalArgumentException(
+                    "Password should contain at least one uppercase letter"
+            );
+        }
+        if (!hasLowCase) {
+            throw new IllegalArgumentException(
+                    "Password should contain at least one lowercase letter"
+            );
+        }
+        if (!hasDigit) {
+            throw new IllegalArgumentException(
+                    "Password should contain at least one figure"
+            );
+        }
+        if (!hasSpecial) {
+            throw new IllegalArgumentException(
+                    "Password should contain at least one special symbol"
+            );
+        }
+
         for (String forbidden : FORBIDDEN) {
             if (password.toLowerCase().contains(forbidden.toLowerCase())) {
                 throw new IllegalArgumentException("Password shouldn't contain substrings: qwerty, 12345, password, admin, user");
             }
 
-            if (!hasUpCase) {
-                throw new IllegalArgumentException(
-                        "Password should contain at least one uppercase letter"
-                );
-            }
-            if (!hasLowCase) {
-                throw new IllegalArgumentException(
-                        "Password should contain at least one lowercase letter"
-                );
-            }
-            if (!hasDigit) {
-                throw new IllegalArgumentException(
-                        "Password should contain at least one figure"
-                );
-            }
-            if (!hasSpecial) {
-                throw new IllegalArgumentException(
-                        "Password should contain at least one special symbol"
-                );
-            }
         }
         return password;
     }
