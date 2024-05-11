@@ -3,6 +3,9 @@ package ru.job4j.tracker;
 import org.junit.jupiter.api.Test;
 import ru.job4j.tracker.action.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StartUITest {
@@ -13,12 +16,11 @@ class StartUITest {
                 new String[]{"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new CreateAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(new StubOutput()).init(input, tracker, actions);
-        assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
+        assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
     @Test
@@ -30,10 +32,9 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(item.getId()), replacedName, "1"}
         );
-        UserAction[] actions = {
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new ReplaceAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(new StubOutput()).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
@@ -46,10 +47,9 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
-        UserAction[] actions = {
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new DeleteAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(new StubOutput()).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
     }
@@ -63,10 +63,9 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(one.getId()), replaceName, "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new ReplaceAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -90,10 +89,9 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new FindAllAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo("Меню:" + ln
@@ -117,10 +115,9 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", findName, "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new FindByNameAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -145,10 +142,9 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(findID), "1"}
         );
-        UserAction[] actions = new UserAction[]{
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new FindByIdAction(output),
-                new ExitAction(output)
-        };
+                new ExitAction(output)));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
@@ -171,9 +167,8 @@ class StartUITest {
                 new String[]{"5", "0"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = new UserAction[]{
-                new ExitAction(output)
-        };
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
+                new ExitAction(output)));
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
