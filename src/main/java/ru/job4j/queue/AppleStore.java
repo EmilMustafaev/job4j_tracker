@@ -15,10 +15,11 @@ public class AppleStore {
     public String getLastHappyCustomer() {
         String result = "";
         int product = this.count;
-        for (Customer customer : queue) {
+        for (int i = 0; i < queue.size(); i++) {
+            Customer lastCustomer = queue.poll();
             product--;
             if (product == 0) {
-                result = customer.name();
+                result = lastCustomer.name();
                 break;
             }
         }
@@ -28,13 +29,14 @@ public class AppleStore {
     public String getFirstUpsetCustomer() {
         String result = "";
         int product = this.count;
-        for (Customer customer : queue) {
-            product--;
-            if (product < 0) {
-                result = customer.name();
+        for (int i = 0; i < queue.size(); i++) {
+            if (product == 0) {
                 break;
             }
-        }
+            product--;
+            queue.remove();
+        } Customer firstCustomer = queue.poll();
+        result = firstCustomer.name();
         return result;
     }
 }
