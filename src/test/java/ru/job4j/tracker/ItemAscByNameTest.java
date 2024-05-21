@@ -10,10 +10,17 @@ class ItemAscByNameTest {
 
     @Test
     void compareAscByDefault() {
-        List<Item> items = Arrays.asList(new Item("Bug"),
-                new Item("Error"), new Item("Exception"));
+        List<Item> items = Arrays.asList(
+                new Item("Exception"),
+                new Item("Error"),
+                new Item("Bug")
+        );
+        List<Item> expected = Arrays.asList(
+                new Item("Bug"),
+                new Item("Error"),
+                new Item("Exception")
+        );
         Collections.sort(items);
-        List<Item> expected = items;
         assertThat(items).isEqualTo(expected);
     }
 
@@ -21,8 +28,12 @@ class ItemAscByNameTest {
     void compareAscByName() {
         List<Item> items = Arrays.asList(new Item("Bug"),
                 new Item("Error"), new Item("Exception"));
+        List<Item> expected = Arrays.asList(
+                new Item("Bug"),
+                new Item("Error"),
+                new Item("Exception")
+        );
         items.sort(new ItemAscByName());
-        List<Item> expected = items;
         assertThat(items).isEqualTo(expected);
     }
 
@@ -30,8 +41,12 @@ class ItemAscByNameTest {
     void compareDescByName() {
         List<Item> items = Arrays.asList(new Item("Bug"),
                 new Item("Error"), new Item("Exception"));
+        List<Item> expected = Arrays.asList(
+                new Item("Exception"),
+                new Item("Error"),
+                new Item("Bug")
+        );
         items.sort(new ItemDescByName());
-        List<Item> expected = items;
         assertThat(items).isEqualTo(expected);
     }
 
