@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.function.*;
 
 public class FunctionalInterfaces {
-    @SuppressWarnings("checkstyle:WhitespaceAfter")
     public static void main(String[] args) {
         Map<Integer, String> map = new HashMap<>();
         BiConsumer<Integer, String> biConsumer = (key, value) -> map.put(key, value);
@@ -19,7 +18,7 @@ public class FunctionalInterfaces {
         biConsumer.accept(6, "six");
         biConsumer.accept(7, "seven");
 
-        BiPredicate<Integer, String> biPredicate = (key, value) -> key % 2 == 0 || map.get(key).length() == 4;
+        BiPredicate<Integer, String> biPredicate = (key, value) -> key % 2 == 0 || value.length() == 4;
         for (Integer key : map.keySet()) {
             if (biPredicate.test(key, map.get(key))) {
                 System.out.println("key: " + key + " value: " + map.get(key));
