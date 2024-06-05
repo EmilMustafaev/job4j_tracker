@@ -36,6 +36,5 @@ class Card {
                         .map(value -> new Card(suit, value)))
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
-
     }
 }
