@@ -5,34 +5,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Item implements Comparable<Item> {
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+    private LocalDateTime created;
 
     public Item() {
+        this.created = LocalDateTime.now().withNano(0);
+    }
+
+    public Item(int id, String name, LocalDateTime created) {
+        this.id = id;
+        this.name = name;
+        this.created = created;
     }
 
     public Item(String name) {
         this.name = name;
-    }
-
-    public Item(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{"
-                + "id=" + id
-                + ", name='" + name + '\''
-                + ", created=" + created.format(FORMATTER)
-                + '}';
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
+        this.created = LocalDateTime.now().withNano(0);
     }
 
     public int getId() {
@@ -51,9 +43,17 @@ public class Item implements Comparable<Item> {
         this.name = name;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     @Override
-    public int compareTo(Item item) {
-        return name.compareTo(item.getName());
+    public String toString() {
+        return String.format("id: %s, name: %s, created: %s", id, name, FORMATTER.format(created));
     }
 
     @Override
@@ -65,11 +65,16 @@ public class Item implements Comparable<Item> {
             return false;
         }
         Item item = (Item) o;
-        return name == item.name;
+        return id == item.id && Objects.equals(name, item.name) && Objects.equals(created, item.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(id, name, created);
+    }
+
+    @Override
+    public int compareTo(Item other) {
+        return this.name.compareTo(other.name);
     }
 }
