@@ -110,4 +110,18 @@ public class SqlTrackerTest {
         assertThat(tracker.findById(item.getId())).isEqualTo(resultItem);
     }
 
+    @Test
+    public void whenDeleteOneItemThenOtherItemsRemain() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        Item item3 = new Item("item3");
+        tracker.add(item1);
+        tracker.add(item2);
+        tracker.add(item3);
+        tracker.delete(item1.getId());
+        List<Item> allItems = tracker.findAll();
+        assertThat(allItems).containsExactlyInAnyOrder(item2, item3);
+    }
+
 }
