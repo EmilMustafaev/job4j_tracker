@@ -1,12 +1,3 @@
-2024-12-13 12:19:40.702652+03:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "DATABASECHANGELOGLOCK" не найдена
-Table "DATABASECHANGELOGLOCK" not found; SQL statement:
-SELECT COUNT(*) FROM DATABASECHANGELOGLOCK [42102-224]
-2024-12-13 12:26:33.847450+03:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ITEMS" уже существует
-Table "ITEMS" already exists; SQL statement:
-create table items (
-    id serial primary key,
-    name text,
-    created timestamp
-) [42101-224]
+2024-12-14 10:49:13.234306+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found (this database is empty); SQL statement:
+SELECT COUNT(*) FROM DATABASECHANGELOGLOCK [42104-224]
