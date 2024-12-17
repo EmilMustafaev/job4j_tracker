@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HbmTracker implements Store, AutoCloseable {
@@ -73,36 +74,54 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public List<Item> findAll() {
         Session session = sf.openSession();
+        List<Item> result = new ArrayList<>();
         try {
-            return session.createQuery("FROM Item", Item.class)
+            session.beginTransaction();
+            result = session.createQuery("FROM Item", Item.class)
                     .list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
+        return result;
     }
 
     @Override
     public List<Item> findByName(String key) {
         Session session = sf.openSession();
+        List<Item> result = new ArrayList<>();
         try {
-            return session.createQuery("FROM Item WHERE name = :fName", Item.class)
+            session.beginTransaction();
+            result = session.createQuery("FROM Item WHERE name = :fName", Item.class)
                     .setParameter("fName", key)
                     .list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
+        return result;
     }
 
     @Override
     public Item findById(int id) {
         Session session = sf.openSession();
+        Item result = new Item();
         try {
-            return session.createQuery("FROM Item WHERE id = :fId", Item.class)
+            session.beginTransaction();
+            result = session.createQuery("FROM Item WHERE id = :fId", Item.class)
                     .setParameter("fId", id)
                     .uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.beginTransaction().rollback();
         } finally {
             session.close();
         }
+        return result;
     }
 
     @Override
