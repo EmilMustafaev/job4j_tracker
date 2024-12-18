@@ -109,7 +109,7 @@ public class HbmTracker implements Store, AutoCloseable {
     @Override
     public Item findById(int id) {
         Session session = sf.openSession();
-        Item result = new Item();
+        Item result = null;
         try {
             session.beginTransaction();
             result = session.createQuery("FROM Item WHERE id = :fId", Item.class)
